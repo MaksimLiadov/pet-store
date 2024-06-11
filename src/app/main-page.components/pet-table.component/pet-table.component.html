@@ -1,0 +1,31 @@
+<p-table class="petTable" [value]="petData" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="caption">
+        <div class="header">
+            Список животных
+            <div class="buttons">
+                <p-button icon="pi pi-refresh" (click)=downloadContent() />
+                <p-button label="Добавить" (click)=showDialogAddPet() />
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Имя</th>
+            <th>Вид</th>
+            <th>Статус</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>{{product.name ? product.name : 0}}</td>
+            <td>{{product.category.name ? product.category.name : 0}}</td>
+            <td>{{product.status ? product.status : 0}}</td>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            Всего {{petData ? petData.length : 0 }} животных.
+        </div>
+    </ng-template>
+</p-table>

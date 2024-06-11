@@ -15,8 +15,19 @@
                         "polyfills": [
                             "zone.js"
                         ],
+                        "inlineStyleLanguage": "scss",
+                        "styles": [
+                            "node_modules/primeicons/primeicons.css",
+                            "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+                            "node_modules/primeng/resources/primeng.min.css"
+                        ],
                         "tsConfig": "tsconfig.json",
-                        "aot": true
+                        "aot": true,
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "node_modules/"
+                            ]
+                        }
                     }
                 },
                 "serve": {
@@ -29,6 +40,6 @@
         }
     },
     "cli": {
-      "analytics": false
+        "analytics": false
     }
 }

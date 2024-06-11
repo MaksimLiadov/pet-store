@@ -1,0 +1,17 @@
+.petTable {
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+.header {
+    //position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    align-items: center;
+
+    &>.buttons * {
+        margin-right: 10px;
+    }
+}
