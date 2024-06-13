@@ -2,16 +2,14 @@ export interface IPet {
     id: number,
     category: IPetCategory,
     name: string,
-    photoUrls: [
-        string
-    ],
-    tags: [
-        {
-            id: number,
-            name: string
-        }
-    ],
+    photoUrls: string[],
+    tags: IPetTags[],
     status: StatusEnum
+}
+
+export interface IPetTags {
+    id: number,
+    name: string
 }
 
 export interface IPetCategory {
