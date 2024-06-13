@@ -1,0 +1,23 @@
+<div class="dialog">
+    <div class="input-fields-container">
+
+        <div class="input-field">
+            <label for="usergender" class="font-semibold w-6rem">Вид</label>
+            <p-dropdown class="input-dropdown" id="usergender" [options]="categories" [(ngModel)]="petCategoryStr"
+                (ngModelChange)="onPetCategoryStrChange(petCategoryStr)" placeholder=" Вид" />
+        </div>
+        <div class="input-field">
+            <label for="username" class="font-semibold w-6rem">Кличка</label>
+            <input pInputText class="input-text" type="text" [(ngModel)]="petName" placeholder="Кличка животного" />
+        </div>
+        <div class="input-field">
+            <label for="usergender" class="font-semibold w-6rem">Статус</label>
+            <p-dropdown class="input-dropdown" id="usergender" [options]="statuses" [(ngModel)]="status"
+                placeholder="Статус" />
+        </div>
+    </div>
+    <div class="buttons">
+        <p-button label="Отменить" severity="secondary" (click)="closeDialog()" />
+        <p-button pRipple label="Добавить" (click)="addPet()" />
+    </div>
+</div>

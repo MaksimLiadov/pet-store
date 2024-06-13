@@ -1,0 +1,40 @@
+.dialog {
+    &>.input-fields-container {
+        margin-top: 13px;
+        margin-bottom: 13px;
+        width: 100%;
+
+        &>.input-field {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3px;
+
+            &>.input-text {
+                z-index: calc(var(--current-z-index) + 1000);
+                width: 298px;
+            }
+        }
+    }
+
+    &>.buttons {
+        margin-top: 35px;
+    }
+
+    &>.buttons * {
+        position: relative;
+        margin-right: 7px;
+        z-index: 1;
+    }
+
+}
+
+:host ::ng-deep .p-dropdown {
+    z-index: 2;
+    width: 298px;
+}
+
+:host ::ng-deep .ui-dropdown-panel {
+    z-index: 3;
+    width: 298px;
+}

@@ -12,34 +12,13 @@ export class HttpService {
         return this.http.get<httpData[]>(ref).pipe(
             take(10)
         );
-        // return interval(1000).pipe( // отправляем запрос каждую секунду
+        // return interval(1000).pipe(
         //     switchMap(() => this.http.get<httpData[]>(ref))
         // );
     }
 
-    public postObj(ref: string, body: object): void {
-        console.log("ref: " + ref);
-        console.log("body: " + JSON.stringify(body));
-        body = {
-            id: 11,
-            category: {
-                id: 1,
-                name: "lexy"
-            },
-            name: "doggie",
-            photoUrls: [
-                "string"
-            ],
-            tags: [
-                {
-                    id: 0,
-                    name: "string"
-                }
-            ],
-            status: "sold"
-        }
-
-        this.http.post(ref, body);
+    public post<httpData>(ref: string, body: object): Observable<httpData[]> {
+        return this.http.post<httpData[]>(ref, body);
     }
 
 }

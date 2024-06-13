@@ -28,6 +28,20 @@
                                 "node_modules/"
                             ]
                         }
+                    },
+                    "configurations": {
+                        "production": {
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "vendorChunk": false,
+                            "buildOptimizer": true
+                        },
+                        "development": {
+                            "optimization": false,
+                            "sourceMap": true
+                        }
                     }
                 },
                 "serve": {

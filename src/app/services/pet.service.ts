@@ -8,12 +8,22 @@ export class PetService {
 
     constructor(private httpService: HttpService) { }
 
+    public id: number = 100;
+
     public getObj(ref: string): Observable<IPet[]> {
         return this.httpService.getData<IPet>(ref);
     }
 
-    public postPet(ref: string, body: IPet): void {
-        this.httpService.postObj(ref, body as object);
+    public postPet(ref: string, body: IPet): Observable<IPet[]> {
+        return this.httpService.post(ref, body);
+    }
+
+    public getId(): number {
+        return this.id;
+    }
+
+    public increaseId(): void {
+        this.id += 1;
     }
 
 }

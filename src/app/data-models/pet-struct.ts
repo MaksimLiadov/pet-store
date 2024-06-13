@@ -1,9 +1,6 @@
 export interface IPet {
     id: number,
-    category: {
-        id: number,
-        name: string
-    },
+    category: IPetCategory,
     name: string,
     photoUrls: [
         string
@@ -15,6 +12,11 @@ export interface IPet {
         }
     ],
     status: StatusEnum
+}
+
+export interface IPetCategory {
+    id: number,
+    name: string
 }
 
 export enum StatusEnum {
