@@ -9,7 +9,21 @@
     justify-content: space-between;
     align-items: center;
 
+    &>.title {
+        &>strong {
+            font-size: 2em;
+        }
+    }
+
+    &>.title * {
+        margin-right: 10px;
+    }
+
     &>.buttons * {
         margin-right: 10px;
     }
+}
+
+:host ::ng-deep .p-dropdown {
+    width: 300px;
 }

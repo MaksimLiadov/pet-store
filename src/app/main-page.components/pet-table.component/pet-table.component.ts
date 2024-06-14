@@ -1,19 +1,20 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { AddPetComponent } from "../add-pet-dialog.component/add-pet-dialog.component"
-import { IPet } from "../../data-models/pet-struct"
+import { IPet, StatusEnum } from "../../data-models/pet-struct"
 import { ApiLinksEnum } from "src/app/data-models/api-links"
 import { TableModule } from 'primeng/table';
 import { PetService } from "../../services/pet.service"
 import { HttpService } from "../../services/http.service"
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
 import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog'
 
 @Component({
     selector: "pet-table",
     standalone: true,
-    imports: [FormsModule, HttpClientModule, TableModule, ButtonModule, AddPetComponent, DynamicDialogModule],
+    imports: [FormsModule, HttpClientModule, TableModule, ButtonModule, DropdownModule, AddPetComponent, DynamicDialogModule],
     providers: [PetService, HttpService, DialogService],
     templateUrl: "./pet-table.component.html",
     styleUrl: './pet-table.component.scss'
@@ -25,15 +26,17 @@ export class PetTableComponent implements OnInit {
     ref: DynamicDialogRef | undefined;
 
     public petData: IPet[] = [];
+    public condition: StatusEnum;
+    public conditions: StatusEnum[] = [StatusEnum.Available, StatusEnum.Pending, StatusEnum.Sold]
 
     ngOnInit(): void {
-        this.downloadContent();
+        this.downloadContent(ApiLinksEnum.GetAvailablePet);
     }
 
-    public downloadContent(): void {
+    private downloadContent(ref: string): void {
         this.petData = [];
         this.cdRef.detectChanges();
-        this.petService.getObj(ApiLinksEnum.GetSoldPet).subscribe({
+        this.petService.getObj(ref).subscribe({
             next: (data: IPet[]) => {
                 this.petData = data;
             }
@@ -64,5 +67,22 @@ export class PetTableComponent implements OnInit {
                 this.ref.destroy();
             }
         });
+    }
+
+    public onConditionChange(condition: StatusEnum): void {
+        switch (condition) {
+            case StatusEnum.Available:
+                this.downloadContent(ApiLinksEnum.GetAvailablePet);
+                break;
+            case StatusEnum.Sold:
+                this.downloadContent(ApiLinksEnum.GetSoldPet);
+                break;
+            case StatusEnum.Pending:
+                this.downloadContent(ApiLinksEnum.GetPendingPet);
+                break;
+            default:
+                break;
+        }
+
     }
 }
