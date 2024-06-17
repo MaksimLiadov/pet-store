@@ -26,7 +26,7 @@ export class PetTableComponent implements OnInit {
     ref: DynamicDialogRef | undefined;
 
     public petData: IPet[] = [];
-    public condition: StatusEnum;
+    public condition: StatusEnum = StatusEnum.Available;
     public conditions: StatusEnum[] = [StatusEnum.Available, StatusEnum.Pending, StatusEnum.Sold]
 
     ngOnInit(): void {
@@ -69,7 +69,7 @@ export class PetTableComponent implements OnInit {
         });
     }
 
-    public onConditionChange(condition: StatusEnum): void {
+    public loadTableByCondition(condition: StatusEnum): void {
         switch (condition) {
             case StatusEnum.Available:
                 this.downloadContent(ApiLinksEnum.GetAvailablePet);
