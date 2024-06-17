@@ -2,10 +2,10 @@ import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { AddPetComponent } from "../add-pet-dialog.component/add-pet-dialog.component"
 import { IPet, StatusEnum } from "../../data-models/pet-struct"
-import { ApiLinksEnum } from "src/app/data-models/api-links"
 import { TableModule } from 'primeng/table';
 import { PetService } from "../../services/pet.service"
 import { HttpService } from "../../services/http.service"
+import { Config } from "src/app/config"
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
@@ -15,7 +15,7 @@ import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dy
     selector: "pet-table",
     standalone: true,
     imports: [FormsModule, HttpClientModule, TableModule, ButtonModule, DropdownModule, AddPetComponent, DynamicDialogModule],
-    providers: [PetService, HttpService, DialogService],
+    providers: [PetService, HttpService, DialogService, Config],
     templateUrl: "./pet-table.component.html",
     styleUrl: './pet-table.component.scss'
 })
@@ -30,13 +30,13 @@ export class PetTableComponent implements OnInit {
     public conditions: StatusEnum[] = [StatusEnum.Available, StatusEnum.Pending, StatusEnum.Sold]
 
     ngOnInit(): void {
-        this.downloadContent(ApiLinksEnum.GetAvailablePet);
+        this.getContent(StatusEnum.Available);
     }
 
-    private downloadContent(ref: string): void {
+    private getContent(status: string): void {
         this.petData = [];
         this.cdRef.detectChanges();
-        this.petService.getObj(ref).subscribe({
+        this.petService.getPetsByStatus(status).subscribe({
             next: (data: IPet[]) => {
                 this.petData = data;
             }
@@ -56,33 +56,16 @@ export class PetTableComponent implements OnInit {
 
         this.ref.onClose.subscribe((data: IPet) => {
             if (data) {
-                this.petService.postPet(ApiLinksEnum.PostPet, data).subscribe({
-                    next: (data: IPet[]) => {
+                this.petService.addPet(data).subscribe(
+                    (data: IPet[]) => {
                         this.petData = data;
                     }
-                });
+                );
                 this.ref.destroy();
             }
             else {
                 this.ref.destroy();
             }
         });
-    }
-
-    public loadTableByCondition(condition: StatusEnum): void {
-        switch (condition) {
-            case StatusEnum.Available:
-                this.downloadContent(ApiLinksEnum.GetAvailablePet);
-                break;
-            case StatusEnum.Sold:
-                this.downloadContent(ApiLinksEnum.GetSoldPet);
-                break;
-            case StatusEnum.Pending:
-                this.downloadContent(ApiLinksEnum.GetPendingPet);
-                break;
-            default:
-                break;
-        }
-
     }
 }

@@ -4,11 +4,11 @@
             <div class="title">
                 <strong>Список животных</strong>
                 <p-dropdown class="conditions" [options]="conditions" [(ngModel)]="condition"
-                    placeholder="Выберете статус животного" (ngModelChange)="loadTableByCondition(condition)" />
+                    placeholder="Выберете статус животного" (ngModelChange)="getContent(condition)" />
             </div>
 
             <div class="buttons">
-                <p-button icon="pi pi-refresh" (click)=loadTableByCondition(condition) />
+                <p-button icon="pi pi-refresh" (click)=getContent(condition) />
                 <p-button label="Добавить" (click)=showDialogAddPet() />
             </div>
         </div>
